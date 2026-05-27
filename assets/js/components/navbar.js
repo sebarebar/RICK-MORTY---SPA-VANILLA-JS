@@ -11,7 +11,7 @@ export async function loadNavbar() {
             <a href="/" data-link>Home</a>
             <a href="/contacts" data-link>Contactos</a>
             <a href="/about" data-link> Quiénes Somos</a>
-            <a href="#david"> Quiénes Somos</a>
+            <a href="/episodes" data-link> Rick & Morty's Episodes</a>
         </nav>
     `;
 }

@@ -1,5 +1,5 @@
 import { loadHTML } from '../utils/helpers.js';
-import { getCharacters } from '../services/api.js';
+import { getInfo } from '../services/api.js';
 import { characterCard } from '../components/characterCard.js';
 
 /**
@@ -13,7 +13,7 @@ export async function renderHome() {
     const container = document.getElementById(
         'characters-container'
     );
-    const characters = await getCharacters();
+    const characters = await getInfo("character");
     container.innerHTML = characters
         .map(character => characterCard(character))
         .join('');
