@@ -1,5 +1,5 @@
 /**
- * Character Card Component
+ * Episode Card Component
  */
 
 export function episodesCard(episode) {
@@ -16,6 +16,10 @@ export function episodesCard(episode) {
                 <p>
                     <strong>Number episode:</strong>
                     ${episode.episode}
+                </p>
+                <p>
+                    <strong>Characters:</strong>
+                    ${episode.characters.length}
                 </p>
             </div>
         </article>

@@ -1,19 +1,34 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    font-family: system-ui, -apple-system, sans-serif;
+    /* Fondo oscuro del espacio exterior */
+    background: #0d1117; 
+    color: #e2e8f0;
 }
 
 .navbar {
-    background: #202329;
-    padding: 1rem;
+    /* El verde oscuro del portal */
+    background: #112d19; 
+    padding: 1rem 2rem;
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    border-bottom: 3px solid #39ff14;
+    /* Brillo neón en la barra */
+    box-shadow: 0 4px 20px rgba(57, 255, 20, 0.2); 
 }
 
 .navbar a {
-    color: white;
+    color: #39ff14; /* Verde neón */
     text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #00ffff; /* Azul cian / pelo de Rick */
+    text-shadow: 0 0 10px #00ffff;
 }
 
 main {
@@ -23,33 +38,90 @@ main {
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    gap: 2rem; /* Más espacio entre tarjetas */
 }
 
 .card {
-    background: white;
-    border-radius: 10px;
+    /* Fondo oscuro para que resalte el contenido */
+    background: #1a231b; 
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0px 3px 10px rgba(0,0,0,.1);
+    /* Borde verde ácido */
+    border: 2px solid #39ff14; 
+    /* Efecto de brillo interdimensional */
+    box-shadow: 0 8px 16px rgba(57, 255, 20, 0.15); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    /* El brillo se intensifica al pasar el mouse */
+    box-shadow: 0 12px 25px rgba(57, 255, 20, 0.4); 
 }
 
 .card img {
     width: 100%;
+    display: block;
+    /* Separa la imagen del texto con una línea ácida */
+    border-bottom: 2px solid #39ff14; 
 }
 
 .card-body {
-    padding: 1rem;
+    padding: 1.5rem;
+    color: #ffffff;
+}
+
+.card-body h3, h1, h2 {
+    color: #00ffff; /* Color de Rick */
+    letter-spacing: 1px;
+    margin-top: 0;
+    text-transform: uppercase;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
     max-width: 400px;
+    background: #161d17;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid #39ff14;
 }
 
 input,
-textarea,
+textarea {
+    padding: 1rem;
+    background: #0d1117;
+    border: 1px solid #145228;
+    border-radius: 6px;
+    color: #ffffff;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
 button {
     padding: 1rem;
+    background: #39ff14;
+    color: #0d1117;
+    border: none;   
+    border-radius: 6px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #00ffff;
+    box-shadow: 0 0 15px #00ffff;
+    transform: scale(1.02);
 }

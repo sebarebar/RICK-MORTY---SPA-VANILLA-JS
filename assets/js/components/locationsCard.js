@@ -1,3 +1,7 @@
+/**
+ * location Card Component
+ */
+
 export function locationsCard(location) {
 
     return `
@@ -12,6 +16,10 @@ export function locationsCard(location) {
                 <p>
                     <strong>Dimension:</strong>
                     ${location.dimension}
+                </p>
+                <p>
+                    <strong>Residents:</strong>
+                    ${location.residents.length}
                 </p>
             </div>
         </article>

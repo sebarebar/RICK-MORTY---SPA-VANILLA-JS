@@ -32,6 +32,6 @@ export async function getInfo(info) {
 
     } catch (error) {
         console.error(error);
-        return [];
+        return [];  
     }
 }
