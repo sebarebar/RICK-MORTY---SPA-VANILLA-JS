@@ -1,7 +1,6 @@
 /**
  * Character Card Component
  */
-
 export function characterCard(character) {
   return `
         <article class="card">
@@ -23,6 +22,9 @@ export function characterCard(character) {
             </div>
 
             <div class="card-actions">
+                <button class="btn-edit" data-id="${character.id}">
+                    ✏️ Editar
+                </button>
                 <button class="btn-delete" data-id="${character.id}">
                     🗑 Eliminar
                 </button>
