@@ -12,16 +12,15 @@ import httpClient from './httpClient.js';
 export async function getInfo(info) {
     let response 
     try {
-        debugger;
         switch (info){
             case  "character": 
                 response = await httpClient.get('/character');
                 break;
-            case  "episodes": 
+            case  "episode": 
                 response = await httpClient.get('/episode');
                 break;
 
-            case  "location": 
+            case  "locations": 
                 response = await httpClient.get('/location');
                 break;
             default:

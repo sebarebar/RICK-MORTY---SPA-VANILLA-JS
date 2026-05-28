@@ -10,7 +10,7 @@ export async function renderEpisodes() {
         './assets/js/views/episodes.html'
     );
     const container = document.getElementById(
-            'episode')
+            'episode-container')
 
     const episode = await getInfo("episode");
         container.innerHTML = episode
