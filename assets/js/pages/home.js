@@ -17,43 +17,45 @@ export async function renderHome() {
     .map((character) => characterCard(character))
     .join('');
 
-// añadi este para el evento de eliminar (eliminen este comentario)
+  // añadi este para el evento de eliminar (eliminen este comentario)
   addDeleteEvents(container);
-// boton de crear un personaje
-  addCreaterButton();
+  // boton de crear un personaje
+  addCreateButton(container);
 }
 
 // eliminar //
 
 // Función para agregar eventos de eliminar
 function addDeleteEvents(container) {
-    container.querySelectorAll('.btn-delete').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.getAttribute('data-id');
-            handleDelete(id, container);
-        });
+  container.querySelectorAll('.btn-delete').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      handleDelete(id, container);
     });
+  });
 }
 
 // Función principal de eliminar
 function handleDelete(id, container) {
-    if (confirm('¿Estás seguro de que deseas eliminar este personaje?')) {
-        currentCharacters = currentCharacters.filter(character => character.id != id);
-        
-        container.innerHTML = currentCharacters
-            .map(character => characterCard(character))
-            .join('');
-        
-        addDeleteEvents(container);   // Reactivar botones
-        alert('✅ Personaje eliminado correctamente');
-    }
+  if (confirm('¿Estás seguro de que deseas eliminar este personaje?')) {
+    currentCharacters = currentCharacters.filter(
+      (character) => character.id != id,
+    );
+
+    container.innerHTML = currentCharacters
+      .map((character) => characterCard(character))
+      .join('');
+
+    addDeleteEvents(container); // Reactivar botones
+    alert('✅ Personaje eliminado correctamente');
+  }
 }
 
 // crear personaje //
 
 // Función para agregar el botón de crear
 function addCreateButton(container) {
-    const createBtnHTML = `
+  const createBtnHTML = `
         <div style="text-align: center; margin: 20px 0;">
             <button id="btn-create" style="padding: 12px 25px; font-size: 16px; background: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer;">
                 ➕ Crear Personaje Ficticio
@@ -61,77 +63,73 @@ function addCreateButton(container) {
         </div>
     `;
 
-    container.insertAdjacentHTML('beforebegin', createBtnHTML);
+  container.insertAdjacentHTML('beforebegin', createBtnHTML);
 
-    document.getElementById('btn-create').addEventListener('click', () => {
-        createNewCharacter(container);
-    });
+  document.getElementById('btn-create').addEventListener('click', () => {
+    createNewCharacter(container);
+  });
 }
 
 // Función para crear personaje
 function createNewCharacter(container) {
-    const name = prompt("Nombre del personaje:");
-    if (!name) return;
+  const name = prompt('Nombre del personaje:');
+  if (!name) return;
 
-    const species = prompt("Especie del personaje:");
-    const status = prompt("Estado (Alive / Dead / unknown):") || "Alive";
-    const image = prompt("URL de la imagen (puedes dejar vacío):") || 
-                 "https://via.placeholder.com/300x300?text=Personaje";
+  const species = prompt('Especie del personaje:');
+  const status = prompt('Estado (Alive / Dead / unknown):') || 'Alive';
+  const image =
+    prompt('URL de la imagen (puedes dejar vacío):') ||
+    'https://via.placeholder.com/300x300?text=Personaje';
 
-    const newCharacter = {
-        id: 'local-' + Date.now(),
-        name: name,
-        species: species,
-        status: status,
-        image: image
-    };
+  const newCharacter = {
+    id: 'local-' + Date.now(),
+    name: name,
+    species: species,
+    status: status,
+    image: image,
+  };
 
-    currentCharacters.unshift(newCharacter); // Agregar al principio
+  currentCharacters.unshift(newCharacter); // Agregar al principio
 
-    container.innerHTML = currentCharacters
-        .map(character => characterCard(character))
-        .join('');
+  container.innerHTML = currentCharacters
+    .map((character) => characterCard(character))
+    .join('');
 
-    addDeleteEvents(container);
-    alert('✅ Personaje creado correctamente');
+  addDeleteEvents(container);
+  alert('✅ Personaje creado correctamente');
 }
 
 // Función para agregar eventos de editar
 function addEditEvents(container) {
-    container.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.getAttribute('data-id');
-            handleEdit(id, container);
-        });
+  container.querySelectorAll('.btn-edit').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      handleEdit(id, container);
     });
+  });
 }
 
 // Función principal de editar
 function handleEdit(id, container) {
-    const character = currentCharacters.find(char => char.id == id);
-    if (!character) return;
+  const character = currentCharacters.find((char) => char.id == id);
+  if (!character) return;
 
-    const newName = prompt("Nuevo nombre:", character.name);
-    if (newName !== null) character.name = newName;
+  const newName = prompt('Nuevo nombre:', character.name);
+  if (newName !== null) character.name = newName;
 
-    const newSpecies = prompt("Nueva especie:", character.species);
-    if (newSpecies !== null) character.species = newSpecies;
+  const newSpecies = prompt('Nueva especie:', character.species);
+  if (newSpecies !== null) character.species = newSpecies;
 
-    const newStatus = prompt("Nuevo estado:", character.status);
-    if (newStatus !== null) character.status = newStatus;
+  const newStatus = prompt('Nuevo estado:', character.status);
+  if (newStatus !== null) character.status = newStatus;
 
-    // Re-renderizar todo
-    container.innerHTML = currentCharacters
-        .map(character => characterCard(character))
-        .join('');
+  // Re-renderizar todo
+  container.innerHTML = currentCharacters
+    .map((character) => characterCard(character))
+    .join('');
 
-    addDeleteEvents(container);
-    addEditEvents(container);
+  addDeleteEvents(container);
+  addEditEvents(container);
 
-    alert('✅ Personaje editado correctamente');
+  alert('✅ Personaje editado correctamente');
 }
-
-renderCharacters();           
-addCreateButton(container);
-addDeleteEvents(container);
-addEditEvents(container);
