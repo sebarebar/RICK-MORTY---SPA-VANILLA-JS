@@ -9,7 +9,6 @@ export async function loadHTML(path) {
     }
     return await response.text();
   } catch (error) {
-    console.error(error);
-    return '<h2>Error cargando contenido</h2>';
+    throw error; // Este Throw error automatíza los errores como tal de los servicios.
   }
 }

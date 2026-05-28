@@ -29,8 +29,8 @@ function handleSubmit(event) {
   const card = document.createElement('div');
   card.classList.add('feedback-card');
 
-  card.innerHTML = `<h4>${escapeHTML(nameInput.value)}</h4>
-    <p>"${escapeHTML(msgInput.value)}"</p>
+  card.innerHTML = `<h4>${nameInput.value}</h4>
+    <p>"${msgInput.value}"</p>
     <span class="feedback-date">Justo ahora</span>`;
 
   container.prepend(card); // El prepend es para insentar la tarjeta al inicio del la cuadricula del grid, es decir añade el comentario del usuario como el más reciente.

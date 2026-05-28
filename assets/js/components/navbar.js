@@ -10,8 +10,8 @@ export async function loadNavbar() {
             <a href="/"data-link>Home</a>
             <a href="/episodes">Episodes</a>
             <a href="/locations"data-link> Locations</a>
-            <a href="/contacts" data-link>Contactos</a>
-            <a href="/about" data-link> Quiénes Somos</a>
+            <a href="/contacts" data-link>Contacts</a>
+            <a href="/about" data-link> Who we are</a>
             <a href="/feedback" data-link>FeedBack</a>
         </nav>
     `;
