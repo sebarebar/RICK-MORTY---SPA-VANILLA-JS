@@ -4,7 +4,6 @@ import { characterCard } from '../components/characterCard.js';
 import { create } from 'axios';
 
 let currentCharacters = [];
-currentCharacters.unshift(newCharacter);
 /**
  * Renderiza Home
  */
@@ -26,132 +25,113 @@ export async function renderHome() {
 
 // eliminar //
 
+// Función para agregar eventos de eliminar
 function addDeleteEvents(container) {
-  container.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const id = e.target.dataset.id;
-      handleDelete(id, container);
+    container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            handleDelete(id, container);
+        });
     });
-  });
 }
 
+// Función principal de eliminar
 function handleDelete(id, container) {
-  if(confirm('¿Estás seguro de que deseas eliminar este personaje?')){
-    currentCharacters = currentCharacters.filter(character => character.id != id);
-    
-    container.innerHTML = currentCharacters
-      .map((character) => characterCard(character))
-      .join('');
-
-    addDeleteEvents(container);
-
-    alert('Personaje eliminado correctamente');
-  }
+    if (confirm('¿Estás seguro de que deseas eliminar este personaje?')) {
+        currentCharacters = currentCharacters.filter(character => character.id != id);
+        
+        container.innerHTML = currentCharacters
+            .map(character => characterCard(character))
+            .join('');
+        
+        addDeleteEvents(container);   // Reactivar botones
+        alert('✅ Personaje eliminado correctamente');
+    }
 }
 
 // crear personaje //
 
-function addCreateButton() {
-  const container = document.getElementById('characters-container');
+// Función para agregar el botón de crear
+function addCreateButton(container) {
+    const createBtnHTML = `
+        <div style="text-align: center; margin: 20px 0;">
+            <button id="btn-create" style="padding: 12px 25px; font-size: 16px; background: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                ➕ Crear Personaje Ficticio
+            </button>
+        </div>
+    `;
 
-  const createBtnHTML = `
-    <div style="text-align: center: margin: 20px 0;">
-      <button id="btn-create-character" class="btn-create">
-        ➕ Crear Personaje Ficticio
-      </button>
-    </div>
-  `;
+    container.insertAdjacentHTML('beforebegin', createBtnHTML);
 
-  container.insertAdjacentHTML('beforegin', createBtnHTML);
-
-  document.getElementById('btn-create-character').addEventListener('click', showCreateModal);
+    document.getElementById('btn-create').addEventListener('click', () => {
+        createNewCharacter(container);
+    });
 }
 
-function showCreateModel() {
-  const modalHTML = `
-    <div id="create-modal" class="modal">
-      <div class="modal-content">
-        <h2>Crear Nuevo Personaje</h2>
+// Función para crear personaje
+function createNewCharacter(container) {
+    const name = prompt("Nombre del personaje:");
+    if (!name) return;
 
-        <form id="create-form">
-          <label>Nombre:</label>
-          <input type="text" id="name" required>
+    const species = prompt("Especie del personaje:");
+    const status = prompt("Estado (Alive / Dead / unknown):") || "Alive";
+    const image = prompt("URL de la imagen (puedes dejar vacío):") || 
+                 "https://via.placeholder.com/300x300?text=Personaje";
 
-          <label>Especie:</label>
-          <input type="text" id="especies" required>
+    const newCharacter = {
+        id: 'local-' + Date.now(),
+        name: name,
+        species: species,
+        status: status,
+        image: image
+    };
 
-          <label>Género:</label>
-          <select id="gender" required>
-            <option value="">Seleccionar></option>
-            <option value="Male">Masculino</option>
-            <option value="Female">Femenino</option>
-            <option value="Unknown">Desconocido</option>
-          </select>
-          <label>Estado:</label>
-          <select id="status" required>
-            <option value="">Seleccionar</option>
-            <option value="Alive">Vivo</option>
-            <option value="Dead">Muerto</option>
-            <option value="Unknown">Desconocido</option>
-          </select>
+    currentCharacters.unshift(newCharacter); // Agregar al principio
 
-          <label>URL de imagen:</label>
-          <input type="url" id="image" placeholder="https://..." required>
+    container.innerHTML = currentCharacters
+        .map(character => characterCard(character))
+        .join('');
 
-          <div class="modal-buttons">
-            <button type="button" id="cancel-btn">Cancelar</button>
-            <button type="submit">Crear personaje</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  `;
-
-  document.body.insertAdjacentHTML('beforeend, modalHTML');
-  
-  const form = document.getElementById('create-form');
-  const modal = document.getElementById('create modal');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    createNewCharacter();
-  });
+    addDeleteEvents(container);
+    alert('✅ Personaje creado correctamente');
 }
 
-document.getElementById('cancel-btn').addEventListener('click',() =>{
-  modal.remove();
-});
-
-function createNewCharacter(){
-  const name = document.getElementById('name').value.trim();
-  const species = document.getElementById('species').value.trim();
-  const gender = document.getElementById('gener').value.trim();
-  const status = document.getElementById('status').value.trim();
-  const image = document.getElementById('image').value.trim();
-
-  if (!name || !species || !image) {
-    alert("Por favor completa todos los campos");
-    return;
-  }
-
-  const newCharacter = {
-    id: 'local-' + date-now(),
-    name: name,
-    species: species,
-    gender: gender,
-    status: status,
-    image: image,
-    isLocal: true
-  };
-
-  const container = document.getElementById('characters-container');
-  container.innerHTML = currentCharacters
-    .map((character) => characterCard(character))
-    .join('');
-  
-  addDeleteEvents(container);
-
-  document.getElementById('create-modal').remove();
-
-  alert('✅ personaje ficticio creado correctamente');
+// Función para agregar eventos de editar
+function addEditEvents(container) {
+    container.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            handleEdit(id, container);
+        });
+    });
 }
+
+// Función principal de editar
+function handleEdit(id, container) {
+    const character = currentCharacters.find(char => char.id == id);
+    if (!character) return;
+
+    const newName = prompt("Nuevo nombre:", character.name);
+    if (newName !== null) character.name = newName;
+
+    const newSpecies = prompt("Nueva especie:", character.species);
+    if (newSpecies !== null) character.species = newSpecies;
+
+    const newStatus = prompt("Nuevo estado:", character.status);
+    if (newStatus !== null) character.status = newStatus;
+
+    // Re-renderizar todo
+    container.innerHTML = currentCharacters
+        .map(character => characterCard(character))
+        .join('');
+
+    addDeleteEvents(container);
+    addEditEvents(container);
+
+    alert('✅ Personaje editado correctamente');
+}
+
+renderCharacters();           
+addCreateButton(container);
+addDeleteEvents(container);
+addEditEvents(container);
