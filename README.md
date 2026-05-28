@@ -107,3 +107,7 @@ Para ejecutar el proyecto, primero se debe instalar las dependencias y luego rea
 npm install
 npm run dev
 ```
+
+## Página que usó para los Emojis
+
+adjunto link de la ruta el cual se usó: (https://html-css-js.com/html/character-codes/)
