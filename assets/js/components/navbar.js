@@ -8,7 +8,7 @@ export async function loadNavbar() {
   navbar.innerHTML = `
         <nav class="navbar">
             <a href="/"data-link>Home</a>
-            <a href="/episodes">Episodes</a>
+            <a href="/episodes" data-link >Episodes</a>
             <a href="/locations"data-link> Locations</a>
             <a href="/contacts" data-link>Contacts</a>
             <a href="/about" data-link> Who we are</a>
