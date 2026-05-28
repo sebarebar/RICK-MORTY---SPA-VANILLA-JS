@@ -3,8 +3,7 @@
  */
 
 export function locationsCard(location) {
-
-    return `
+  return `
         <article class="card">
 
             <div class="card-body">

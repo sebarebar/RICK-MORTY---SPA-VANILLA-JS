@@ -13,27 +13,27 @@ import { router } from './router.js';
  * @param {string} url
  */
 export function navigateTo(url) {
-    history.pushState(null, null, url);
-    router();
+  history.pushState(null, null, url);
+  router();
 }
 
 /**
  * Inicialización principal.
  */
 window.addEventListener('DOMContentLoaded', async () => {
-    await loadNavbar();
-    router();
+  await loadNavbar();
+  router();
 
-    /**
-     * Intercepta links SPA
-     */
-    document.body.addEventListener('click', event => {
-        const target = event.target;
-        if (target.matches('[data-link]')) {
-            event.preventDefault();
-            navigateTo(target.href);
-        }
-    });
+  /**
+   * Intercepta links SPA
+   */
+  document.body.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target.matches('[data-link]')) {
+      event.preventDefault();
+      navigateTo(target.href);
+    }
+  });
 });
 
 /**

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * Axios HTTP Client
  * Configuración centralizada Axios.
  */
@@ -16,38 +16,33 @@ const TIME_OUT = import.meta.env.VITE_TIME_OUT;
  * Instancia global Axios
  */
 const httpClient = axios.create({
-    baseURL: API_URL,
-    timeout: TIME_OUT,
-    headers: {
-        'Content-Type': CONTENT_TYPE
-    }
+  baseURL: API_URL,
+  timeout: TIME_OUT,
+  headers: {
+    'Content-Type': CONTENT_TYPE,
+  },
 });
 
 /**
  * Interceptor Request
  */
 httpClient.interceptors.request.use(
-    config => {
-        console.log(
-            `[REQUEST]: ${config.method?.toUpperCase()} ${config.url}`
-        );
-        return config;
-    },
-    error => Promise.reject(error)
+  (config) => {
+    console.log(`[REQUEST]: ${config.method?.toUpperCase()} ${config.url}`);
+    return config;
+  },
+  (error) => Promise.reject(error),
 );
 
 /**
  * Interceptor Response
  */
 httpClient.interceptors.response.use(
-    response => response,
-    error => {
-        console.error(
-            '[API ERROR]:',
-            error.response?.data || error.message
-        );
-        return Promise.reject(error);
-    }
+  (response) => response,
+  (error) => {
+    console.error('[API ERROR]:', error.response?.data || error.message);
+    return Promise.reject(error);
+  },
 );
 
 export default httpClient;

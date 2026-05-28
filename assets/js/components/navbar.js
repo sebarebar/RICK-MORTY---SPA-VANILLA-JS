@@ -3,10 +3,9 @@
  */
 
 export async function loadNavbar() {
+  const navbar = document.getElementById('navbar');
 
-    const navbar = document.getElementById('navbar');
-
-    navbar.innerHTML = `
+  navbar.innerHTML = `
         <nav class="navbar">
             <a href="/"data-link>Home</a>
             <a href="/episodes">Episodes</a>

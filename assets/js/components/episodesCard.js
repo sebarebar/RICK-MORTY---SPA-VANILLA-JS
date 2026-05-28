@@ -3,8 +3,7 @@
  */
 
 export function episodesCard(episode) {
-
-    return `
+  return `
         <article class="card">
 
             <div class="card-body">

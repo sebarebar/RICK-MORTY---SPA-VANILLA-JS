@@ -102,6 +102,7 @@ VITE_TIME_OUT=5000
 ## Ejecutar el proyecto
 
 Para ejecutar el proyecto, primero se debe instalar las dependencias y luego realizar el run del proyecto
+
 ```bash
 npm install
 npm run dev

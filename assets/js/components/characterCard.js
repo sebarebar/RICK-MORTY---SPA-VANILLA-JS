@@ -3,8 +3,7 @@
  */
 
 export function characterCard(character) {
-
-    return `
+  return `
         <article class="card">
             <img
                 src="${character.image}"
