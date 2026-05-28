@@ -21,6 +21,12 @@ export function characterCard(character) {
                     ${character.species}
                 </p>
             </div>
+
+            <div class="card-actions">
+                <button class="btn-delete" data-id="${character.id}">
+                    🗑 Eliminar
+                </button>
+            </div>
         </article>
     `;
 }
