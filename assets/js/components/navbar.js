@@ -12,6 +12,7 @@ export async function loadNavbar() {
             <a href="/locations"data-link> Locations</a>
             <a href="/contacts" data-link>Contactos</a>
             <a href="/about" data-link> Quiénes Somos</a>
+            <a href="/feedback" data-link>FeedBack</a>
         </nav>
     `;
 }
