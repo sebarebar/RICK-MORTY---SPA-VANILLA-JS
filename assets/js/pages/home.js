@@ -57,7 +57,7 @@ function handleDelete(id, container) {
 function addCreateButton(container) {
   const createBtnHTML = `
         <div style="text-align: center; margin: 20px 0;">
-            <button id="btn-create" style="padding: 12px 25px; font-size: 16px; background: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            <button id="btn-create" >
                 ➕ Crear Personaje Ficticio
             </button>
         </div>
