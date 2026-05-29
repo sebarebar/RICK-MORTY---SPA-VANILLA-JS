@@ -92,6 +92,7 @@ function createNewCharacter(container) {
   const name = prompt('Nombre del personaje:');
   if (!name) return;
 
+
   const species = prompt('Especie del personaje:');
   const status = prompt('Estado (Alive / Dead / unknown):') || 'Alive';
   const image =
@@ -99,6 +100,7 @@ function createNewCharacter(container) {
     'https://via.placeholder.com/300x300?text=Personaje';
 
   // Build new character with unique local id
+  let custom = "flase"
   const newCharacter = {
     id: 'local-' + Date.now(),
     name: name,

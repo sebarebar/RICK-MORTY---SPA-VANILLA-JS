@@ -156,6 +156,42 @@ The project follows a modular architecture divided into layers:
 - Node.js >= 18.0.0
 - npm
 
-## Font Emojis
-
+## Emojis source
+source where the emojis were implemented:
 -https://html-css-js.com/html/character-codes/
+
+
+## Architectural Design
+
+**Question 1:**
+
+How will you manage the state of locally created characters?
+A: For state management, a two-tier architecture has been defined: a global in-memory array (currentCharacters) will serve as the single source of truth during the session, synchronized bidirectionally with localStorage under the key ‘my_characters’. The startup flow will prioritize reading from local storage to ensure immediate persistence, resorting to the API only if the local data is empty; any write operation (create, edit, delete) will atomically update both layers to avoid inconsistencies.
+
+**Question 2:**
+
+How will you differentiate between original characters and fictional characters?
+A/Entity differentiation will be resolved through a naming convention in the identifiers: while original characters will retain their numerical IDs from the API, local records will be generated with a ‘local-’ prefix followed by a unique timestamp. This structure will allow the rendering component (characterCard) to determine the data’s origin through a simple string check (startsWith) and dynamically assign the visual label “Fictitious” or “Real” without the need for additional metadata.
+
+**Question 3**
+How will you synchronize:
+•API
+•DOM
+•localStorage
+•SPA rendering
+
+ The system’s synchronization will strictly follow a unidirectional data flow pattern (API → Memory → Persistence → DOM), eliminating direct manipulation of the DOM. It has been established that rendering will be reactive: any data mutation will first trigger an update to the in-memory array, then its persistence in localStorage, and finally a complete re-rendering of the HTML container based on the new state, all orchestrated by the SPA router to maintain consistency with every view change.
+
+**Question 4**
+How will you avoid duplication of logic?
+A/To avoid duplication of logic, the architecture will be based on centralization: repetitive storage and loading operations will be encapsulated in single utility modules (storage.js, helpers.js), and standardized card components will be used for HTML generation. A single re-rendering block will be implemented and invoked after any user action, ensuring that the interface update logic is written only once and remains consistent for creating, editing, or deleting elements.
+
+
+
+
+
+**Question 5**
+Which components can be reused?
+A: To avoid duplication of logic, the architecture will be based on centralization: repetitive storage and loading operations will be encapsulated in single utility modules (storage.js, helpers.js), and standardized card components will be used for HTML generation. A single re-rendering block will be implemented and invoked after any user action, ensuring that the interface update logic is written only once and remains consistent for creating, editing, or deleting elements.
+
+
