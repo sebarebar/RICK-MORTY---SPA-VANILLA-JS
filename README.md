@@ -18,7 +18,7 @@ flowchart TD
     F -->|No| H[404 - Página no encontrada]
     G --> I[Importar vista dinámica]
     I --> J[Renderizar contenido en #app]
-    I --> K[Ejecutar lógica de la vista (Home, Contacts, About)]
+    I --> K[Ejecutar lógica de la vista Home, Contacts, About]
     J --> L[Renderizar Navbar]
     L --> M[Eventos: Navegación + Interacción con personajes]
     M --> N[Home: Fetch personajes + Cards dinámicas]
