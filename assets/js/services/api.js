@@ -3,6 +3,7 @@
  */
 
 import httpClient from './httpClient.js';
+import { saveToLocal } from './storage.js';
 
 /**
  * Obtiene personajes.

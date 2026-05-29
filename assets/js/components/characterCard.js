@@ -1,7 +1,7 @@
 /**
  * Character Card Component
  */
-export function characterCard(character) {
+export function characterCard(character, isFavorite = false) {
   return `
         <article class="card">
             <img
