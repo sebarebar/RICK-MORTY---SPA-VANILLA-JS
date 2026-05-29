@@ -32,6 +32,12 @@ body {
   transition: 0.3s ease;
 }
 
+.navbar a.active {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  border-bottom: 2px solid #00ffff;
+}
+
 .navbar a:hover {
   color: #00ffff; /* Azul cian / pelo de Rick */
   text-shadow: 0 0 10px #00ffff;

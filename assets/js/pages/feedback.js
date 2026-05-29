@@ -1,7 +1,7 @@
 import { loadHTML } from '../utils/helpers.js';
 
 /**
- * Renderiza Feedback
+ * Render Feedback
  */
 export async function renderFeebacks() {
   const content = document.getElementById('content');

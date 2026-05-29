@@ -24,6 +24,7 @@ export async function getInfo(info) {
       case 'locations':
         response = await httpClient.get('/location');
         break;
+        
       default:
         throw Error('Error to  loading info API.');
     }

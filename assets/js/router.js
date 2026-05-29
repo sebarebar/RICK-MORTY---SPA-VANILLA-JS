@@ -8,6 +8,7 @@ import { renderAbout } from './pages/about.js';
 import { renderEpisodes } from './pages/episodes.js';
 import { renderLocations } from './pages/locations.js';
 import { renderFeebacks } from './pages/feedback.js';
+import {setActiveLink} from './components/navbar.js'
 
 /**
  * Rutas disponibles
@@ -34,6 +35,7 @@ export async function router() {
     const render = routes[path];
     if (render) {
       await render();
+      setActiveLink()
     } else {
       document.getElementById('content').innerHTML = `
             <section>

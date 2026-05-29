@@ -2,7 +2,7 @@ import { episodesCard } from '../components/episodesCard.js';
 import { loadHTML } from '../utils/helpers.js';
 import { getInfo } from '../services/api.js';
 /**
- * Renderiza Episodes
+ * Render Episodes
  */
 export async function renderEpisodes() {
   const content = document.getElementById('content');

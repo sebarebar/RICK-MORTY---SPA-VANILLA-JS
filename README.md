@@ -1,113 +1,151 @@
-# SPA Vanilla JavaScript - Rick and Morty
+# 🛸 Rick and Morty SPA
 
-## Descripción
-
-Este proyecto es un ejemplo de cómo construir una SPA (Single Page Application) utilizando únicamente JavaScript Vanilla, sin frameworks ni librerías externas.
-
-La aplicación implementa:
-
-- Routing básico SPA
-- Renderizado dinámico de vistas
-- Arquitectura modular
-- Consumo de APIs REST
-- Componentización
-- Separación de responsabilidades
-- Carga dinámica de archivos HTML
-- Buenas prácticas de documentación con JSDoc
+A Single Page Application (SPA) built with Vanilla JavaScript that consumes the [Rick and Morty API](https://rickandmortyapi.com/) and allows users to explore characters, episodes, and locations from the Rick and Morty universe.
 
 ---
 
-# Características
+## 🚀 Technologies
 
-## Home
-
-- Consume la API pública de Rick and Morty
-- Obtiene personajes dinámicamente
-- Renderiza cards reutilizables
-
-## Contactos
-
-- Formulario desacoplado
-- Manejo de eventos JavaScript
-
-## Quiénes Somos
-
-- Página estática modular
-
-## Arquitectura SPA
-
-- Navegación sin recargar la página
-- Hash Routing
-- Carga dinámica de vistas
+- JavaScript Vanilla (ES6+)
+- Vite
+- Axios
+- Rick and Morty API
+- LocalStorage
 
 ---
 
-# Tecnologías utilizadas
+## 📁 Project Structure
 
-- HTML5
-- CSS3
-- JavaScript ES6+
-- Axios API
-- ES Modules
-
----
-
-# Estructura del proyecto
-
-```txt
-spa-rick-morty/
-│
-├── index.html
+```
+example-spa/
 ├── assets/
 │   ├── css/
 │   │   └── styles.css
-│   │
+│   ├── img/
+│   │   └── R&M.png
 │   └── js/
-│       ├── app.js
-│       ├── router.js
-│       │
-│       ├── services/
-│       │   └── api.js
-│       │
-│       ├── utils/
-│       │   └── helpers.js
-│       │
 │       ├── components/
-│       │   ├── navbar.js
-│       │   └── characterCard.js
-│       │
+│       │   ├── characterCard.js     # Character card component
+│       │   ├── episodesCard.js      # Episode card component
+│       │   ├── locationsCard.js     # Location card component
+│       │   └── navbar.js            # Navigation bar component
 │       ├── pages/
-│       │   ├── home.js
-│       │   ├── contacts.js
-│       │   └── about.js
-│       │
-│       └── views/
-│           ├── home.html
-│           ├── contacts.html
-│           └── about.html
-│
+│       │   ├── about.js             # About view
+│       │   ├── contacts.js          # Contacts view
+│       │   ├── episodes.js          # Episodes view
+│       │   ├── feedback.js          # Feedback view
+│       │   ├── home.js              # Home view (characters)
+│       │   └── locations.js         # Locations view
+│       ├── services/
+│       │   ├── api.js               # API consumption
+│       │   ├── httpClient.js        # HTTP client with Axios
+│       │   └── storage.js           # localStorage and sessionStorage handler
+│       ├── utils/
+│       │   ├── errorHandler.js      # Global error handler
+│       │   └── helpers.js           # Reusable utility functions
+│       ├── views/
+│       │   ├── about.html
+│       │   ├── contacts.html
+│       │   ├── episodes.html
+│       │   ├── feedback.html
+│       │   ├── home.html
+│       │   └── locations.html
+│       ├── app.js                   # Main entry point
+│       └── router.js                # SPA Router
+├── index.html
+├── package.json
 └── README.md
 ```
 
-# Ejecución del proyecto
+---
 
-## Crear un archivo .env
+## ⚙️ Installation and Usage
 
+**1. Clone the repository:**
 ```bash
-VITE_API_URL=https://rickandmortyapi.com/api
-VITE_CONTENT_TYPE=application/json
-VITE_TIME_OUT=5000
+git clone <repository-url>
+cd example-spa
 ```
 
-## Ejecutar el proyecto
-
-Para ejecutar el proyecto, primero se debe instalar las dependencias y luego realizar el run del proyecto
-
+**2. Install dependencies:**
 ```bash
 npm install
+```
+
+**3. Start the development server:**
+```bash
 npm run dev
 ```
 
-## Página que usó para los Emojis
+**4. Open in browser:**
+```
+http://localhost:5173
+```
 
-adjunto link de la ruta el cual se usó: (https://html-css-js.com/html/character-codes/)
+---
+
+## 📄 Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Starts the development server |
+| `npm run build` | Builds the app for production |
+| `npm run preview` | Previews the production build |
+
+---
+
+## 🧩 Features
+
+### Characters (Home)
+- List of characters fetched from the API
+- localStorage cache to avoid unnecessary API calls
+- Create custom local characters
+- Edit name, species and status of any character
+- Delete characters with confirmation dialog
+
+### SPA Navigation
+- Client-side routing without page reloads using `history.pushState`
+- Browser back/forward button support
+- 404 page for unknown routes
+
+### Persistence
+- Characters are saved in localStorage
+- Changes (create, edit, delete) persist between sessions
+
+---
+
+## 🗂️ Architecture
+
+The project follows a modular architecture divided into layers:
+
+**`services/`** — handles API communication and storage. No DOM knowledge.
+
+**`components/`** — functions that generate HTML as strings. No event handling.
+
+**`pages/`** — render full views, handle events, and coordinate services.
+
+**`utils/`** — reusable functions with no business logic dependencies.
+
+**`router.js`** — maps URL paths to render functions.
+
+**`app.js`** — entry point that initializes the router and SPA navigation.
+
+---
+
+## 🌐 API Reference
+
+[Rick and Morty API](https://rickandmortyapi.com/) — free public API with information about characters, episodes, and locations from the show.
+
+| Endpoint | Description |
+|---|---|
+| `/character` | List of characters |
+| `/episode` | List of episodes |
+| `/location` | List of locations |
+
+---
+
+## 📋 Requirements
+
+- Node.js >= 18.0.0
+- npm
+

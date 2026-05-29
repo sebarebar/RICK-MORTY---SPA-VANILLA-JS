@@ -1,7 +1,7 @@
 import { loadHTML } from '../utils/helpers.js';
 
 /**
- * Renderiza Contactos
+ * Render contacts
  */
 export async function renderContacts() {
   const content = document.getElementById('content');

@@ -1,18 +1,21 @@
+/** 
+ * Import functions
+ */
 import { loadHTML } from '../utils/helpers.js';
 import { getInfo } from '../services/api.js';
 import { characterCard } from '../components/characterCard.js';
 import { getFromLocal, saveToLocal } from '../services/storage.js';
 
+// Global array to store characters in memory
 let currentCharacters = [];
 
-/**
- * Renderiza Home
- */
+// ── Render Home ──
 export async function renderHome() {
   const content = document.getElementById('content');
   content.innerHTML = await loadHTML('./assets/js/views/home.html');
   const container = document.getElementById('characters-container');
 
+  // Load from localStorage or fetch from API
   const localCharacters = getFromLocal('mis_personajes');
   if (localCharacters) {
     currentCharacters = localCharacters;
@@ -22,22 +25,20 @@ export async function renderHome() {
     saveToLocal('mis_personajes', currentCharacters);
   }
 
-  const favorites = getFromLocal('favoritos_rick') || [];
-
+  // Render character cards
   container.innerHTML = currentCharacters
     .map((character) => {
-      const isFavorite = favorites.some((fav) => fav.id == character.id);
-      return characterCard(character, isFavorite);
+      return characterCard(character);
     })
     .join('');
 
-  // Inicializar todos los escuchadores de eventos al cargar la página
+  // Initialize event listeners
   addDeleteEvents(container);
   addEditEvents(container);
-  addFavoriteEvents(container);
   addCreateButton(container);
 }
 
+// ── Delete Events ──
 function addDeleteEvents(container) {
   container.querySelectorAll('.btn-delete').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -47,45 +48,37 @@ function addDeleteEvents(container) {
   });
 }
 
+// ── Handle Delete ──
 function handleDelete(id, container) {
   if (confirm('¿Estás seguro de que deseas eliminar este personaje?')) {
+    // Remove from memory and localStorage
     currentCharacters = currentCharacters.filter(
       (character) => character.id != id,
     );
-
     saveToLocal('mis_personajes', currentCharacters);
 
-    const favorites = getFromLocal('favoritos_rick') || [];
-    const updatedFavorites = favorites.filter((fav) => fav.id != id);
-    saveToLocal('favoritos_rick', updatedFavorites);
-
-    const updatedFavs = getFromLocal('favoritos_rick') || [];
-    // Re-renderizado inmediato
+    // Re-render and reattach events
     container.innerHTML = currentCharacters
       .map((character) => {
-        const isFavorite = updatedFavs.some((fav) => fav.id == character.id);
-        return characterCard(character, isFavorite);
+        return characterCard(character);
       })
       .join('');
-
-    // Reactivar eventos tras limpiar el contenedor
     addDeleteEvents(container);
     addEditEvents(container);
-    addFavoriteEvents(container);
     alert('✅ Personaje eliminado correctamente');
   }
 }
 
+// ── Create Button ──
 function addCreateButton(container) {
+  // Prevent duplicate buttons
   if (document.getElementById('btn-create')) return;
 
   const createBtnHTML = `
-        <div style="text-align: center; margin: 20px 0;">
-            <button id="btn-create" >
-                ➕ Crear Personaje Ficticio
-            </button>
-        </div>
-    `;
+    <div style="text-align: center; margin: 20px 0;">
+      <button id="btn-create">➕ Crear Personaje Ficticio</button>
+    </div>
+  `;
 
   container.insertAdjacentHTML('beforebegin', createBtnHTML);
 
@@ -94,6 +87,7 @@ function addCreateButton(container) {
   });
 }
 
+// ── Create New Character ──
 function createNewCharacter(container) {
   const name = prompt('Nombre del personaje:');
   if (!name) return;
@@ -104,6 +98,7 @@ function createNewCharacter(container) {
     prompt('URL de la imagen (puedes dejar vacío):') ||
     'https://via.placeholder.com/300x300?text=Personaje';
 
+  // Build new character with unique local id
   const newCharacter = {
     id: 'local-' + Date.now(),
     name: name,
@@ -112,23 +107,22 @@ function createNewCharacter(container) {
     image: image,
   };
 
+  // Add to beginning of array and save
   currentCharacters.unshift(newCharacter);
   saveToLocal('mis_personajes', currentCharacters);
 
-  const favorites = getFromLocal('favoritos_rick') || [];
+  // Re-render and reattach events
   container.innerHTML = currentCharacters
     .map((character) => {
-      const isFavorite = favorites.some((fav) => fav.id == character.id);
-      return characterCard(character, isFavorite);
+      return characterCard(character);
     })
     .join('');
-
   addDeleteEvents(container);
   addEditEvents(container);
-  addFavoriteEvents(container);
   alert('✅ Personaje creado correctamente');
 }
 
+// ── Edit Events ──
 function addEditEvents(container) {
   container.querySelectorAll('.btn-edit').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -138,10 +132,13 @@ function addEditEvents(container) {
   });
 }
 
+// ── Handle Edit ──
 function handleEdit(id, container) {
+  // Find character by id
   const character = currentCharacters.find((char) => char.id == id);
   if (!character) return;
 
+  // Prompt for new values (null = user cancelled)
   const newName = prompt('Nuevo nombre:', character.name);
   if (newName !== null) {
     if (!newName.trim()) {
@@ -168,62 +165,16 @@ function handleEdit(id, container) {
     character.status = newStatus;
   }
 
+  // Save and re-render
   saveToLocal('mis_personajes', currentCharacters);
 
-  const favorites = getFromLocal('favoritos_rick') || [];
-  const favIndex = favorites.findIndex((fav) => fav.id == id);
-  if (favIndex !== -1) {
-    favorites[favIndex] = { ...character };
-    saveToLocal('favoritos_rick', favorites);
-  }
-
-  const updatedFavs = getFromLocal('favoritos_rick') || [];
   container.innerHTML = currentCharacters
     .map((char) => {
-      const isFavorite = updatedFavs.some((fav) => fav.id == char.id);
-      return characterCard(char, isFavorite);
+      return characterCard(char);
     })
     .join('');
 
   addDeleteEvents(container);
   addEditEvents(container);
-  addFavoriteEvents(container);
-
   alert('✅ Personaje editado correctamente');
-}
-
-function addFavoriteEvents(container) {
-  container.querySelectorAll('.btn-fav').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-id');
-      handleToggleFavorite(id, container);
-    });
-  });
-}
-
-function handleToggleFavorite(id, container) {
-  let favorites = getFromLocal('favoritos_rick') || [];
-  const isAlreadyFav = favorites.some((fav) => fav.id == id);
-
-  if (isAlreadyFav) {
-    favorites = favorites.filter((fav) => fav.id != id);
-  } else {
-    const character = currentCharacters.find((char) => char.id == id);
-    if (character) {
-      favorites.push(character);
-    }
-  }
-
-  saveToLocal('favoritos_rick', favorites);
-
-  container.innerHTML = currentCharacters
-    .map((character) => {
-      const isFavorite = favorites.some((fav) => fav.id == character.id);
-      return characterCard(character, isFavorite);
-    })
-    .join('');
-
-  addDeleteEvents(container);
-  addEditEvents(container);
-  addFavoriteEvents(container);
 }
