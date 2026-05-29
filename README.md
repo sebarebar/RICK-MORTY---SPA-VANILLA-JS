@@ -4,6 +4,32 @@ A Single Page Application (SPA) built with Vanilla JavaScript that consumes the 
 
 ---
 
+
+
+**📊 Diagrama de Flujo**
+```mermaid
+flowchart TD
+    A[Inicio] --> B[DOMContentLoaded]
+    B --> C[Inicializar Router]
+    C --> D[Configurar Hash Routing]
+    D --> E[Detectar hash actual]
+    E --> F{¿Existe ruta?}
+    F -->|Sí| G[Ruta encontrada]
+    F -->|No| H[404 - Página no encontrada]
+    G --> I[Importar vista dinámica]
+    I --> J[Renderizar contenido en #app]
+    I --> K[Ejecutar lógica de la vista (Home, Contacts, About)]
+    J --> L[Renderizar Navbar]
+    L --> M[Eventos: Navegación + Interacción con personajes]
+    M --> N[Home: Fetch personajes + Cards dinámicas]
+    M --> O[Contacts: Manejo de formulario]
+    M --> P[About: Contenido estático]
+    K --> Q[Fin de la interacción]
+    A --> R[Salida / Cierre de navegador]
+
+    style A fill:#ef4444,stroke:#b91c1c,stroke-width:4px,color:#ffffff,stroke-dasharray:5,5
+    style Q fill:#f87171,stroke:#991b1b
+```
 ## 🚀 Technologies
 
 - JavaScript Vanilla (ES6+)
