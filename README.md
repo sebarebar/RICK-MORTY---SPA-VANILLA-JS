@@ -62,22 +62,26 @@ example-spa/
 ## ⚙️ Installation and Usage
 
 **1. Clone the repository:**
+
 ```bash
 git clone <repository-url>
 cd example-spa
 ```
 
 **2. Install dependencies:**
+
 ```bash
 npm install
 ```
 
 **3. Start the development server:**
+
 ```bash
 npm run dev
 ```
 
 **4. Open in browser:**
+
 ```
 http://localhost:5173
 ```
@@ -86,10 +90,10 @@ http://localhost:5173
 
 ## 📄 Available Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Starts the development server |
-| `npm run build` | Builds the app for production |
+| Command           | Description                   |
+| ----------------- | ----------------------------- |
+| `npm run dev`     | Starts the development server |
+| `npm run build`   | Builds the app for production |
 | `npm run preview` | Previews the production build |
 
 ---
@@ -97,6 +101,7 @@ http://localhost:5173
 ## 🧩 Features
 
 ### Characters (Home)
+
 - List of characters fetched from the API
 - localStorage cache to avoid unnecessary API calls
 - Create custom local characters
@@ -104,11 +109,13 @@ http://localhost:5173
 - Delete characters with confirmation dialog
 
 ### SPA Navigation
+
 - Client-side routing without page reloads using `history.pushState`
 - Browser back/forward button support
 - 404 page for unknown routes
 
 ### Persistence
+
 - Characters are saved in localStorage
 - Changes (create, edit, delete) persist between sessions
 
@@ -136,11 +143,11 @@ The project follows a modular architecture divided into layers:
 
 [Rick and Morty API](https://rickandmortyapi.com/) — free public API with information about characters, episodes, and locations from the show.
 
-| Endpoint | Description |
-|---|---|
+| Endpoint     | Description        |
+| ------------ | ------------------ |
 | `/character` | List of characters |
-| `/episode` | List of episodes |
-| `/location` | List of locations |
+| `/episode`   | List of episodes   |
+| `/location`  | List of locations  |
 
 ---
 
@@ -149,3 +156,6 @@ The project follows a modular architecture divided into layers:
 - Node.js >= 18.0.0
 - npm
 
+## Font Emojis
+
+-https://html-css-js.com/html/character-codes/
